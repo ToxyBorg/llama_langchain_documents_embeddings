@@ -29,7 +29,9 @@ from langchain.embeddings.base import Embeddings
 """
 
 
-def save_embeddings(embeddings: Embeddings, file_name: str, directory_path: str):
+def save_embeddings(
+    embeddings: Embeddings, file_name: str, directory_path: str
+) -> None:
     directory = os.path.join(os.getcwd(), directory_path)
     if not os.path.exists(directory):
         os.makedirs(directory)

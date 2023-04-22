@@ -19,6 +19,7 @@
 import os
 import sys
 import json
+from typing import List
 
 from langchain.embeddings.base import Embeddings
 from langchain.embeddings import LlamaCppEmbeddings
@@ -40,7 +41,9 @@ from HELPERS.save_embeddings import save_embeddings
 """
 
 
-def create_embeddings(load_json_chunks_directory: str, path_to_ggml_model: str):
+def create_embeddings(
+    load_json_chunks_directory: str, path_to_ggml_model: str
+) -> List[Embeddings]:
     # Load LlamaCppEmbeddings object
     embeddings = LlamaCppEmbeddings(model_path=path_to_ggml_model)
 
@@ -52,7 +55,7 @@ def create_embeddings(load_json_chunks_directory: str, path_to_ggml_model: str):
             with open(os.path.join(load_json_chunks_directory, filename), "r") as f:
                 documents = json.load(f)
 
-            # texts = [doc["0"] for doc in documents]
+            # texts = [doc["chunk_x"] for doc in documents]
             texts: list = []
             for doc in documents:
                 for key, value in doc.items():
@@ -67,9 +70,9 @@ def create_embeddings(load_json_chunks_directory: str, path_to_ggml_model: str):
 
 """################# CALLING THE FUNCTION #################"""
 
-print("\n####################### CREATING EMBEDDINGS ########################\n")
-
 load_dotenv()  # Load environment variables from .env file
+
+print("\n####################### CREATING EMBEDDINGS ########################\n")
 
 load_json_chunks_directory = os.getenv("DIRECTORY_FOR_DOCUMENTS_JSON_CHUNKS")
 path_to_ggml_model: str = os.getenv("PATH_TO_LLAMA_CPP_GGML")
