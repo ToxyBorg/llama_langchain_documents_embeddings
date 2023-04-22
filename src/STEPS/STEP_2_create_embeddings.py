@@ -1,30 +1,15 @@
+import os
 import json
+from dotenv import load_dotenv
+
 from langchain.embeddings import LlamaCppEmbeddings
 from langchain.embeddings.base import Embeddings
-from dotenv import load_dotenv
-import os
 
-from save_embeddings import save_embeddings
+from HELPERS.save_embeddings import save_embeddings
+
 
 """################# CREATING EMBEDDINGS #################"""
 
-
-# def create_embeddings(json_files_paths: list[str], model_path: str):
-#     # Load LlamaCppEmbeddings object
-#     embeddings = LlamaCppEmbeddings(model_path=model_path)
-
-#     # Embed text from JSON files using LlamaCppEmbeddings
-#     all_embeddings: Embeddings = []
-
-#     for json_file_path in json_files_paths:
-#         with open(json_file_path, "r") as f:
-#             documents = json.load(f)
-
-#         texts = [doc["page_content"] for doc in documents]
-#         embeddings_list = embeddings.embed_documents(texts)
-#         all_embeddings.extend(embeddings_list)
-
-#     return all_embeddings
 
 def create_embeddings(json_dir_path: str, model_path: str):
     # Load LlamaCppEmbeddings object
