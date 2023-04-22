@@ -34,18 +34,30 @@
     used to write the documents to the file.
 """
 
-from langchain.document_loaders import UnstructuredFileLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-
 import os
 import json
 from dotenv import load_dotenv
 
-"""################# MULTIPLE DOCUMENTS LOADING #################"""
+from langchain.document_loaders import UnstructuredFileLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+
+"""
+    Load unstructured documents from a directory path, 
+    split them into smaller chunks, and 
+    save them as JSON files in a specified directory.
+
+    Args:
+        docs_directory_path (str): The path to the directory containing the unstructured documents.
+        save_json_chunks_directory (str): The path to the directory where the JSON files 
+        containing the smaller document chunks will be saved.
+
+    Returns:
+        None
+"""
 
 
 def load_documents(docs_directory_path: str, save_json_chunks_directory: str):
-
     # iterating through all the files in the directory
     for file_name in os.listdir(docs_directory_path):
         file_path = os.path.join(docs_directory_path, file_name)
@@ -55,9 +67,7 @@ def load_documents(docs_directory_path: str, save_json_chunks_directory: str):
 
         # Split documents into smaller chunks
         text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000,
-            chunk_overlap=100,
-            length_function=len
+            chunk_size=1000, chunk_overlap=100, length_function=len
         )
         documents = []
         for doc in docs:
@@ -72,7 +82,8 @@ def load_documents(docs_directory_path: str, save_json_chunks_directory: str):
         # Save documents to JSON file with dynamic name
         file_name = os.path.splitext(file_name)[0]
         json_file_path = os.path.join(
-            save_json_chunks_directory, f"{file_name}_chunks.json")
+            save_json_chunks_directory, f"{file_name}_chunks.json"
+        )
         with open(json_file_path, "w") as f:
             json.dump(documents, f)
 
@@ -88,7 +99,9 @@ docs_directory_path = os.getenv("DIRECTORY_DOCUMENTS_TO_LOAD")
 save_json_chunks_directory = os.getenv("DIRECTORY_FOR_DOCUMENTS_JSON_CHUNKS")
 
 # Load documents and save them
-load_documents(docs_directory_path=docs_directory_path,
-               save_json_chunks_directory=save_json_chunks_directory)
+load_documents(
+    docs_directory_path=docs_directory_path,
+    save_json_chunks_directory=save_json_chunks_directory,
+)
 
 print("\n####################### LOADED AND SAVED ########################\n")
