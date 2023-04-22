@@ -1,7 +1,7 @@
-# LLaMA x Langchain documents embeddings
+# # LLaMA x Langchain documents embeddings
 Just testing langchain's documents embeddings with llamacpp
 
-# STEP 1 LOADING AND CHUNKING THE DOCUMENTS:
+# # STEP 1 LOADING AND CHUNKING THE DOCUMENTS:
 
   ## The function load_documents:
     Loads unstructured documents from a directory path, 
@@ -9,7 +9,7 @@ Just testing langchain's documents embeddings with llamacpp
     It uses the UnstructuredFileLoader and RecursiveCharacterTextSplitter classes from the langchain.document_loaders 
     and langchain.text_splitter modules, respectively.
   
-# STEP 2 CREATING AND SAVING THE EMBEDDINGS:
+# # STEP 2 CREATING AND SAVING THE EMBEDDINGS:
 
   ## The function create_embeddings:
     Loads the LlamaCppEmbeddings model using the provided path, and 
