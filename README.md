@@ -1,4 +1,4 @@
-# llama_langchain_documents_embeddings
+# LLaMA x Langchain documents embeddings
 Just testing langchain's documents embeddings with llamacpp
 
 # STEP 1 LOADING AND CHUNKING THE DOCUMENTS:
