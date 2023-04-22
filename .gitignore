@@ -1,13 +1,6 @@
-
 /.env
-/documents/TranscribeMe Style Guide.pdf
 /Backups
-/documents/TranscribeMe Style Guide Trim.pdf
-/src/__pycache__
-/documents/zkr-intelligent-healthcare-communication-systems-2020.pdf
-/documents/2023_GPT4All-J_Technical_Report.pdf
 /.vscode
 /venv
 /chunked_data
 /documents
-/.gitignore
