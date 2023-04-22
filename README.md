@@ -37,3 +37,31 @@ Just testing langchain's documents embeddings with llamacpp
     It then creates a file path by joining the directory path and file name with a ".pkl" extension. 
     
     Finally, it saves the embeddings object to the binary file using the "pickle" module
+
+# # STEP 3 CREATING AND SAVING VECTORSTORES:
+
+  ## The function create_vectorstore_from_json:
+    Creates a FAISS index from text embeddings extracted from JSON files in a specified directory.
+    The function loads the embeddings, reads the JSON files, extracts the text values, creates text 
+    embedding pairs, and 
+    
+    Returns a FAISS index from the pairs.
+    
+  ## The function load_embeddings:
+    Loads embeddings from a file using the pickle module.
+    The function opens the file in binary mode, loads the embeddings using pickle.load(), and 
+        
+    Returns the embeddings.
+    
+  ## The function save_vectorstore:
+    Saves a FAISS index as a file at the specified directory path and file name.
+    The function creates the directory if it doesn't exist, creates the file path. 
+    
+    Finally, it saves the FAISS index to the file.
+
+
+
+
+
+
+
