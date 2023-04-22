@@ -1,14 +1,18 @@
 """
     This function takes in two arguments: 
+    
     load_json_chunks_directory and path_to_ggml_model. 
     
     The first argument is a string that represents the path to the directory containing JSON files with text documents. 
+    
     The second argument is a string that represents the path to the LlamaCppEmbeddings model.
 
     The function loads the LlamaCppEmbeddings model using the provided path, and 
     then iterates through each JSON file in the directory specified by load_json_chunks_directory. 
+    
     For each file, it extracts the text content from the JSON and passes it to 
     the LlamaCppEmbeddings model to generate embeddings. 
+    
     The embeddings are then added to a list, which is returned by the function.
 """
 
@@ -48,7 +52,13 @@ def create_embeddings(load_json_chunks_directory: str, path_to_ggml_model: str):
             with open(os.path.join(load_json_chunks_directory, filename), "r") as f:
                 documents = json.load(f)
 
-            texts = [doc["page_content"] for doc in documents]
+            # texts = [doc["0"] for doc in documents]
+            texts: list = []
+            for doc in documents:
+                for key, value in doc.items():
+                    texts.append(value)
+                    break
+
             embeddings_list = embeddings.embed_documents(texts)
             all_embeddings.extend(embeddings_list)
 
