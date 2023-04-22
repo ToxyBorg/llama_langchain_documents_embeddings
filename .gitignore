@@ -4,3 +4,5 @@
 /venv
 /chunked_data
 /documents
+/embeddings_data
+/src/HELPERS/__pycache__
