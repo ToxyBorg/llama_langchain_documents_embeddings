@@ -6,3 +6,4 @@
 /documents
 /embeddings_data
 /src/HELPERS/__pycache__
+/vectorstore_data

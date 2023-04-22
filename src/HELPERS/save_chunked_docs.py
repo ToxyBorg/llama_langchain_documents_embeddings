@@ -43,7 +43,7 @@ from typing import List, Dict, Union
 def save_documents(
     documents: List[Dict[str, Union[str, List[Dict[str, str]]]]],
     save_json_chunks_directory: str,
-):
+) -> None:
     # Create directory for chunked data if it doesn't exist
     if not os.path.exists(save_json_chunks_directory):
         os.makedirs(save_json_chunks_directory)
