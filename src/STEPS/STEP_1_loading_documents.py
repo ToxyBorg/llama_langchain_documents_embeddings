@@ -1,13 +1,11 @@
 """
-    This code defines a function called load_documents that loads unstructured documents from a directory path, splits them into smaller chunks, and returns a list of objects. 
+    This code is a Python script that loads documents from a directory, splits them into smaller chunks, and saves the chunks as JSON files. 
     
-    Each object has two properties: 
-    the name of the document that was chunked, and the chunked data itself. 
+    The script uses the os, sys, and dotenv modules to handle file paths and environment variables, and the langchain library to load and split the documents. 
     
-    The function uses the UnstructuredFileLoader or PyPDFLoader class from the langchain.document_loaders module to load the documents from the directory path, and the RecursiveCharacterTextSplitter class from the 
-    langchain.text_splitter module to split the documents into smaller chunks. 
+    The load_documents function takes a directory path as input, iterates through all the files in the directory, determines the file type, loads the document using the appropriate loader, splits the document into smaller chunks using a CharacterTextSplitter, and returns a list of dictionaries containing the document name and chunked data. 
     
-    The resulting list of objects is returned by the function.
+    The script then saves the chunked data as JSON files in a specified directory using the save_documents function.
 """
 
 import os
@@ -17,60 +15,53 @@ from dotenv import load_dotenv
 from langchain.document_loaders import UnstructuredFileLoader
 from langchain.document_loaders import PyPDFLoader
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.text_splitter import CharacterTextSplitter
 
 from typing import List, Dict, Union
 
 # Add src directory to Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from HELPERS.save_chunked_docs import save_documents
-
-
-"""
-    Loads unstructured documents from a directory path, splits them into smaller chunks, 
-    and returns a list of objects.
-    Each object has two properties: 
-        the name of the document that was chunked, 
-        and the chunked data itself.
-    
-    Args:
-    - docs_directory_path (str): The path to the directory containing the documents to be chunked.
-    
-    Returns:
-    - List[Dict[str, Union[str, List[Dict[str, str]]]]]: A list of objects, 
-        where each object has two properties:
-            the name of the document that was chunked, 
-            and the chunked data itself.
-"""
+from HELPERS.step_1_save_chunked_docs import save_documents
 
 
 def load_documents(
     docs_directory_path: str,
 ) -> List[Dict[str, Union[str, List[Dict[str, str]]]]]:
+    """
+    Load documents from a directory and split them into smaller chunks.
+
+    Args:
+        docs_directory_path (str): Path to directory containing documents.
+
+    Returns:
+        List[Dict[str, Union[str, List[Dict[str, str]]]]]: A list of dictionaries containing the name and chunked data of each document in the directory. Each dictionary has the following keys:
+            - 'name': The name of the document file.
+            - 'chunks': A list of dictionaries containing the chunked data of the document. Each dictionary has a key in the format 'chunk_i' (where i is the chunk number) and a value that is the text content of the chunk.
+    """
+
     result = []
-    # iterating through all the files in the directory
+
+    # Iterate through all the files in the directory
     for file_name in os.listdir(docs_directory_path):
         file_path = os.path.join(docs_directory_path, file_name)
-        # Load unstructured documents from file path
 
+        # Determine loader based on file type
         if file_name.endswith(".pdf"):
             loader = PyPDFLoader(file_path=file_path)
         else:
             loader = UnstructuredFileLoader(file_path=file_path)
 
-        docs = loader.load()
+        # Load document
+        document = loader.load()
 
-        # Split documents into smaller chunks
-        text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000, chunk_overlap=100, length_function=len
+        # Split document into smaller chunks
+        text_splitter = CharacterTextSplitter(
+            separator="\n", chunk_size=500, chunk_overlap=100, length_function=len
         )
-        chunks = []
-        for doc in docs:
-            chunks.extend(text_splitter.create_documents([doc.page_content]))
 
         chunks = [
             {"chunk_" + str(i + 1): chunk.page_content}
-            for i, chunk in enumerate(chunks)
+            for i, chunk in enumerate(text_splitter.split_documents(documents=document))
         ]
 
         # Add document name and chunked data to result list

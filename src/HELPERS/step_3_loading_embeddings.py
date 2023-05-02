@@ -14,18 +14,17 @@ import pickle
 from langchain.embeddings.base import Embeddings
 
 
-"""
+def load_embeddings(file_path: str) -> Embeddings:
+    """
     Loads embeddings from the specified file path using pickle.
 
     Args:
-        file_path (str): Path to file containing embeddings.
+        - file_path (str): Path to file containing embeddings.
 
     Returns:
-        Embeddings: Loaded embeddings.
-"""
+        - Embeddings: Loaded embeddings.
+    """
 
-
-def load_embeddings(file_path: str) -> Embeddings:
     with open(file_path, "rb") as f:
         embeddings: Embeddings = pickle.load(f)
 
