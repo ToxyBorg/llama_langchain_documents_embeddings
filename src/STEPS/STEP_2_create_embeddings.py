@@ -27,23 +27,23 @@ from dotenv import load_dotenv
 
 # Add src directory to Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from HELPERS.save_embeddings import save_embeddings
-
-"""
-    Creates embeddings for text documents using the LlamaCppEmbeddings model.
-
-    Args:
-        load_json_chunks_directory (str): Path to directory containing JSON files with text documents.
-        path_to_ggml_model (str): Path to the LlamaCppEmbeddings model.
-
-    Returns:
-        List[Embeddings]: A list of embeddings for the text documents.
-"""
+from HELPERS.step_2_save_embeddings import save_embeddings
 
 
 def create_embeddings(
     load_json_chunks_directory: str, path_to_ggml_model: str
 ) -> List[Embeddings]:
+    """
+    Creates embeddings for text documents using the LlamaCppEmbeddings model.
+
+    Args:
+        - load_json_chunks_directory (str): Path to directory containing JSON files with text documents.
+        - path_to_ggml_model (str): Path to the LlamaCppEmbeddings model.
+
+    Returns:
+        - List[Embeddings]: A list of embeddings for the text documents.
+    """
+
     # Load LlamaCppEmbeddings object
     embeddings = LlamaCppEmbeddings(model_path=path_to_ggml_model)
 
@@ -75,7 +75,7 @@ load_dotenv()  # Load environment variables from .env file
 print("\n####################### CREATING EMBEDDINGS ########################\n")
 
 load_json_chunks_directory = os.getenv("DIRECTORY_FOR_DOCUMENTS_JSON_CHUNKS")
-path_to_ggml_model: str = os.getenv("PATH_TO_LLAMA_CPP_GGML")
+path_to_ggml_model: str = os.getenv("PATH_TO_GPT4ALL_GGML")
 
 # Creating the embeddings
 embeddings = create_embeddings(

@@ -24,23 +24,22 @@ from dotenv import load_dotenv
 
 # Add src directory to Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from HELPERS.loading_embeddings import load_embeddings
-from HELPERS.save_vectorstore import save_vectorstore
-
-
-"""
-    Creates a FAISS index from text embeddings extracted from JSON files in the specified directory.
-
-    Args:
-        json_files_directory (str): Path to directory containing JSON files.
-        model_path (str): Path to model used for generating embeddings.
-
-    Returns:
-        FAISS: FAISS index created from text embedding pairs.
-"""
+from HELPERS.step_3_loading_embeddings import load_embeddings
+from HELPERS.step_3_save_vectorstore import save_vectorstore
 
 
 def create_vectorstore_from_json(json_files_directory: str, model_path: str) -> FAISS:
+    """
+    Creates a FAISS index from text embeddings extracted from JSON files in the specified directory.
+
+    Args:
+        - json_files_directory (str): Path to directory containing JSON files.
+        - model_path (str): Path to model used for generating embeddings.
+
+    Returns:
+        - FAISS: FAISS index created from text embedding pairs.
+    """
+
     # Load embeddings
     embeddings = LlamaCppEmbeddings(model_path=model_path)
 
@@ -85,6 +84,7 @@ vectorstore = create_vectorstore_from_json(
 )
 
 print("\n####################### VECTORSTORE CREATED ########################\n")
+
 
 print("\n####################### SAVING VECTORSTORE ########################\n")
 

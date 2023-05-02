@@ -16,22 +16,22 @@ import os
 
 from langchain.embeddings.base import Embeddings
 
-"""
-    Save embeddings to a binary file with the specified file name and directory path.
-
-    Args:
-        embeddings (Embeddings): The embeddings to be saved.
-        file_name (str): The name of the file to save the embeddings to.
-        directory_path (str): The path to the directory where the file will be saved.
-
-    Returns:
-        None
-"""
-
 
 def save_embeddings(
     embeddings: Embeddings, file_name: str, directory_path: str
 ) -> None:
+    """
+    Save embeddings to a binary file with the specified file name and directory path.
+
+    Args:
+        - embeddings (Embeddings): The embeddings to be saved.
+        - file_name (str): The name of the file to save the embeddings to.
+        - directory_path (str): The path to the directory where the file will be saved.
+
+    Returns:
+        - None
+    """
+
     directory = os.path.join(os.getcwd(), directory_path)
     if not os.path.exists(directory):
         os.makedirs(directory)
