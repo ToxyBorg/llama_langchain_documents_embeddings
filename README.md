@@ -83,13 +83,14 @@ Just testing langchain's documents embeddings with llamacpp
     
     The function returns the answer as a string.
 
-  ## The code then loads environment variables from a .env file, 
-  sets up the paths to the pre-trained language model and the vector store, and 
-  defines the query string. 
-  
-  It calls using_vectorstore_similarity_search to find the most similar documents to the query, and 
-  then calls Q_and_A_implementation to generate an answer to the query using the pre-trained question-answering model. 
-  Finally, it prints the answer to the console.
+  ## Finally
+    The code then loads environment variables from a .env file, 
+    sets up the paths to the pre-trained language model and the vector store, and 
+    defines the query string. 
+
+    It calls using_vectorstore_similarity_search to find the most similar documents to the query, and 
+    then calls Q_and_A_implementation to generate an answer to the query using the pre-trained question-answering model. 
+    Finally, it prints the answer to the console.
 
 
 
