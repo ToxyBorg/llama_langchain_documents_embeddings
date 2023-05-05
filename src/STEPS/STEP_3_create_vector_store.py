@@ -50,7 +50,7 @@ def create_vectorstore_from_json(json_files_directory: str, model_path: str) -> 
         load_embeddings_directory, load_embeddings_file_name + ".pkl"
     )
 
-    text_embeddings = load_embeddings(file_path=embeddings_path)
+    loaded_embeddings = load_embeddings(file_path=embeddings_path)
 
     texts: list = []
     for filename in os.listdir(json_files_directory):
@@ -61,11 +61,10 @@ def create_vectorstore_from_json(json_files_directory: str, model_path: str) -> 
             for chunk in chunks:
                 for key, value in chunk.items():
                     texts.append(value)
+                    break
 
-    text_embedding_pairs = list(zip(texts, text_embeddings))
-    faiss = FAISS.from_embeddings(
-        embedding=embeddings, text_embeddings=text_embedding_pairs
-    )
+    text_embedding = list(zip(texts, loaded_embeddings))
+    faiss = FAISS.from_embeddings(embedding=embeddings, text_embeddings=text_embedding)
 
     return faiss
 
@@ -76,7 +75,7 @@ load_dotenv()  # Load environment variables from .env file
 
 print("\n####################### CREATING VECTORSTORE ########################\n")
 
-path_to_ggml_model: str = os.getenv("PATH_TO_LLAMA_CPP_GGML")
+path_to_ggml_model: str = os.getenv("PATH_TO_GGML_MODEL")
 json_files_directory = os.getenv("DIRECTORY_FOR_DOCUMENTS_JSON_CHUNKS")
 
 vectorstore = create_vectorstore_from_json(

@@ -56,7 +56,10 @@ def load_documents(
 
         # Split document into smaller chunks
         text_splitter = CharacterTextSplitter(
-            separator="\n", chunk_size=500, chunk_overlap=100, length_function=len
+            separator=" ",
+            chunk_size=100,
+            chunk_overlap=50,
+            length_function=len,
         )
 
         chunks = [

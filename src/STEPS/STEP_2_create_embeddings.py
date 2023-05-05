@@ -75,7 +75,7 @@ load_dotenv()  # Load environment variables from .env file
 print("\n####################### CREATING EMBEDDINGS ########################\n")
 
 load_json_chunks_directory = os.getenv("DIRECTORY_FOR_DOCUMENTS_JSON_CHUNKS")
-path_to_ggml_model: str = os.getenv("PATH_TO_GPT4ALL_GGML")
+path_to_ggml_model: str = os.getenv("PATH_TO_GGML_MODEL")
 
 # Creating the embeddings
 embeddings = create_embeddings(
