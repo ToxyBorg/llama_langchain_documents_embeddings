@@ -1,6 +1,23 @@
 # # LLaMA x Langchain documents embeddings
-Just testing langchain's documents embeddings with llamacpp
+Langchain's documents embeddings with llamacpp
 
+# # STEP 0:
+  
+  ## RENAMING THE .example.env TO JUST .env AND MODIFYING WHAT'S NECESSARY:
+    PATH_TO_GGML_MODEL="/path/to/ggml/model"
+
+    DIRECTORY_DOCUMENTS_TO_LOAD="./data/documents"
+    DIRECTORY_FOR_DOCUMENTS_JSON_CHUNKS="./data/chunked_data"
+
+    SAVING_EMBEDDINGS_FILE_NAME="default LLAMACPP Embeddings"
+    SAVING_EMBEDDINGS_DIRECTORY="./data/embeddings_data"
+
+    SAVING_VECTORSTORE_FILE_NAME="default LLAMACPP VectorStore"
+    SAVING_VECTORSTORE_DIRECTORY="./data/vectorstore_data"
+    
+  ## INSTALL REQUIRED PACKAGES:
+    pip install -r requirements.txt
+    
 # # STEP 1 LOADING AND CHUNKING THE DOCUMENTS:
 
   ## The function load_documents:
